@@ -1,4 +1,36 @@
-<h1>Question</h1>
-<h1><%= @pregunta %></h1>
-<h1>Answer</h1>
-<h1><%= @respuesta %></h1>
+<div class="question">
+<h2><%= @question %></h2>
+<h2>-You</h2>
+</div>
+<br>
+
+<% 
+def coach_answer(your_message)
+  if your_message.end_with?('?')
+    "Silly question, get dressed and go to work!"
+  elsif your_message == "I am going to work right now!"
+    ""
+  else
+    "I don't care, get dressed and go to work!"
+  end
+end
+
+def coach_answer_enhanced(your_message)
+  coach_answer = ""
+  coach_answer += "I can feel your motivation! " if your_message == your_message.upcase
+  if your_message.end_with?('?')
+    coach_answer += "Silly question, get dressed and go to work!"
+  else
+    coach_answer += "I don't care, get dressed and go to work!"
+  end
+  coach_answer = "Great!" if your_message.upcase == "I AM GOING TO WORK"
+  coach_answer
+end
+%>
+<div class="answer">
+<h2><%= coach_answer_enhanced(@question) %></h2>
+<h2>-Your coach</h2>
+</div>
+<br>
+<br>
+<%= link_to "Ask another question", ask_path %>
